@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native","rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  email        String     @unique
+  firstname    String?
+  lastname     String?
+  password     String
+  profileImage String?
+  shops        UserShop[]
+}
+
+model Shop {
+  id               Int        @id @default(autoincrement())
+  shop_name        String
+  shop_url         String     @unique
+  access_token     String?
+  access_scopes    String?
+  membership_level String
+  users            UserShop[]
+  created_at       DateTime   @default(now())
+  updated_at       DateTime   @updatedAt  @default(now())
+  session          Session[]
+}
+
+model UserShop {
+  userId Int
+  user    User @relation(fields: [userId], references: [id])
+  shopId Int
+  shop    Shop @relation(fields: [shopId], references: [id])
+
+  @@id([userId, shopId])
+}
+
+model Session {
+  id         Int      @id @default(autoincrement())
+  shop       Shop     @relation(fields: [shop_id], references: [id])
+  shop_id    Int
+  created_at DateTime @default(now())
+  expires_at DateTime
+}
