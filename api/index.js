@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 let trpcExpress = require('@trpc/server/adapters/express');
-var { appRouter, createContext } = require("./trpc")
+var { appRouter, createContext } = require("../trpc/routes");
 
 var app = express();
 

@@ -10,7 +10,6 @@ const createContext = ({
 }) => ({}); // no context
 const t = initTRPC.context().create();
 
-
 const publicProcedure = t.procedure;
 
 const appRouter = t.router({
