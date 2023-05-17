@@ -20,6 +20,12 @@ app.use(express.static("uploads"));
 //cors
 app.use(cors());
 
+app.get('/test-server', function (req, res) {
+  return res.json({
+    success: true
+  });
+});
+
 /**
  * TRPC Middleware
  */
@@ -27,7 +33,6 @@ app.use('',trpcExpress.createExpressMiddleware({
   router: appRouter,
   createContext,
 }));
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,6 +49,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 app.listen(port, () => console.log(`Server started on port ${port}`));
 
 module.exports = app;
