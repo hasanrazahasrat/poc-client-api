@@ -29,7 +29,7 @@ app.get('/test-server', function (req, res) {
 /**
  * TRPC Middleware
  */
-app.use('',trpcExpress.createExpressMiddleware({
+app.use('trpc',trpcExpress.createExpressMiddleware({
   router: appRouter,
   createContext,
 }));
