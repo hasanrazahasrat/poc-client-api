@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./api/index",
     "dev": "nodemon -w api -w trpc --exec \"node ./api/index.js\"",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate && prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "^4.13.0",
